@@ -1,18 +1,26 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import "./App.css";
+import Nummy from "./Nummy";
 import { createResource } from "./Person";
 import PersonComponent from "./PersonComponent";
 import axios from "axios";
 
-const resource = createResource();
+const initialResource = createResource();
 
 const App = () => {
-  console.log(resource);
+  const [resource, setResource] = useState(initialResource);
+
   return (
     <div className="App">
       <Suspense fallback={<h1>Loading...</h1>}>
+        <Nummy resource={resource} />
+      </Suspense>
+      <Suspense fallback={<h1>whtyn o load</h1>}>
         <PersonComponent resource={resource} />
       </Suspense>
+      <button onClick={() => setResource(createResource())}>
+        refresh data
+      </button>
     </div>
   );
 };

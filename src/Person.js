@@ -3,6 +3,7 @@ function fetchPerson() {
     .then(response => response.json())
     .then(response => response.results[0]);
 }
+// we create our promise that will be wrapped
 const wrapPromise = promise => {
   let status = "pending";
   // keep track if promise is complete error or loading
@@ -32,8 +33,13 @@ const wrapPromise = promise => {
   // in suspender we just wait for the promise
 };
 
+export const randomNumber = () => {
+  return new Promise(res => setTimeout(() => res(Math.random()), 3000));
+};
+
 export const createResource = () => {
   return {
-    person: wrapPromise(fetchPerson())
+    person: wrapPromise(fetchPerson()),
+    num: wrapPromise(randomNumber())
   };
 };
